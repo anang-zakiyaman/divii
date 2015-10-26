@@ -1,0 +1,36 @@
+<md-dialog aria-label="Update Beverage Item" style="max-height:100%;">
+  <md-dialog-content>
+    <form name="updateFoodItemForm" layout="row" layout-wrap flex="100">
+      <div flex="100" ng-show="errMsg" style="color:#e74c3c;"><h4>{{errMsg}}</h4></div>
+      <md-input-container flex="100">
+        <label>Code</label>
+        <input ng-model="beverageItem.code" disabled>
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Title</label>
+        <input ng-model="beverageItem.title">
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Description</label>
+        <input ng-model="beverageItem.description">
+      </md-input-container>
+      <md-input-container flex-gt-md="10" flex-sm="100">
+        <label>Currency</label>
+        <input ng-model="beverageItem.currency">
+      </md-input-container>
+      <md-input-container flex-gt-md="90" flex-sm="100">
+        <label>Price</label>
+        <input type="number" ng-model="beverageItem.price">
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" layout-align="end center">
+    <md-button  class="md-icon-button" ng-click="reset()" aria-label="Reset">
+      <md-icon md-svg-icon="action:ic_settings_backup_restore_24px"></md-icon>
+    </md-button>
+    <md-button
+      ng-click="updateBeverageItem()"
+      class="md-primary">UPDATE</md-button>
+    <md-button ng-click="cancelUpdate()" class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>

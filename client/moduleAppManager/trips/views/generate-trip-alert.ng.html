@@ -1,0 +1,97 @@
+<style>
+  .item-action-menu .item-action-icon {color:#ECF0F1;margin-bottom:4px;}
+</style>
+<md-toolbar
+  layout="column"
+  layout-align="start center"
+  style="background-color:#2c3e50;">
+  <div class="md-toolbar-tools" layout-wrap>
+    <md-button  class="md-icon-button" hide-gt-md
+                ng-click="$parent.toggleSidenav('app-manager-sidenav')" aria-label="Show Menu">
+      <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+    </md-button>
+    <h2><span>Generate Alert</span></h2>
+    <span flex></span>
+    <md-button class="md-icon-button"
+      ng-click="customTripAlert($event)">
+      <md-icon md-svg-icon="content:ic_create_24px"></md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+<md-content layout="row" layout-wrap>
+  <div layout="row" layout-wrap layout-align="start start" flex="100"
+    style="background-color:#ecf0f1;min-height:48px;padding-left:16px;padding-right:16px;">
+    <md-input-container md-no-float style="margin-top:8px;padding-bottom:0px;font-size:16px;"
+      flex-sm="100">
+      <md-icon md-svg-icon="action:ic_search_24px"></md-icon>
+      <input ng-model="searchKey" type="text" placeholder="Search stations" aria-label="Search">
+    </md-input-container>
+    <div flex></div>
+    <dir-pagination-controls flex-sm="100"
+      pagination-id="appGenerateTripAlertPagination"
+      on-page-change="pageChanged(newPageNumber)"
+      template-url="client/moduleAppManager/templates/views/app-pagination.ng.html">
+    </dir-pagination-controls>
+  </div>
+  <div layout="row" layout-padding layout-align="center start" flex="100">
+    <md-list flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+      <md-list-item
+        dir-paginate-start="station in stations | itemsPerPage: perPage"
+        total-items="stationsCount.count"
+        pagination-id="appGenerateTripAlertPagination"
+        class="md-2-line" layout="row" layout-wrap>
+        <md-icon hide-sm md-svg-icon="action:ic_launch_24px" ng-click=""></md-icon>
+        <div class="md-list-item-text">
+          <h3><span style="line-height:24px;">{{ station.name }}</span></h3>
+          <p>{{station.location.city}}</p>
+        </div>
+        <md-icon md-svg-icon="navigation:ic_menu_24px"
+            ng-click="openActionBar(station._id)"
+            ng-hide="opennedItemAction == station._id"></md-icon>
+        <md-icon md-svg-icon="content:ic_remove_24px" style="color:#E74C3C;"
+            ng-click="closeActionBar()"
+            ng-show="opennedItemAction == station._id"></md-icon>
+        <md-whiteframe class="md-whiteframe-z2" flex="100"
+          layout layout-wrap layout-padding layout-align="center start"
+          ng-show="station._id == opennedItemAction"
+          style="margin-bottom:16px;background-color:#ecf0f1;">
+          <div layout layout-align="start center " flex="100"
+            style="padding:0px 8px;">
+            <p flex>Next stop</p>
+            <md-button class="md-button md-raised md-primary"
+              ng-click="nextStopAlert($event, station)"
+              style="min-width:40px;"
+              aria-label="Create next stop alert">
+              <md-icon md-svg-icon="action:ic_announcement_24px"></md-icon>
+            </md-button>
+          </div>
+          <div layout layout-align="start center" flex="100"
+            style="padding:0px 8px;">
+            <p style="margin-right:8px;">Arriving in (min)</p>
+            <md-input-container layout layout-align="start center" style="padding-top:28px;">
+              <input type="number" ng-model="eta" style="width:48px;">
+            </md-input-container>
+            <div flex></div>
+            <md-button class="md-button md-raised md-primary"
+              ng-click="etaAlert($event, station, eta)"
+              style="min-width:40px;"
+              aria-label="Create eta alert">
+              <md-icon md-svg-icon="action:ic_announcement_24px"></md-icon>
+            </md-button>
+          </div>
+          <div layout layout-align="start center" flex="100"
+            style="padding:0px 8px;">
+            <p flex>Arrive</p>
+            <md-button class="md-button md-raised md-primary"
+              ng-click="arrivalAlert($event, station)"
+              style="min-width:40px;"
+              aria-label="Create arrival alert">
+              <md-icon md-svg-icon="action:ic_announcement_24px"></md-icon>
+            </md-button>
+          </div>
+        </md-whiteframe>
+      </md-list-item>
+      <md-divider dir-paginate-end></md-divider>
+    </md-list>
+  </div>
+</md-content>

@@ -1,0 +1,101 @@
+<style>
+  .custom-chips .md-chip {
+    position: relative;
+    padding-right: 35px;
+  }
+  .custom-chips .md-chip .md-chip-remove-container {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    margin-right: 0;
+    height: 24px;
+  }
+  button.chip-button{
+    position: relative;
+    height: 24px;
+    width: 24px;
+    line-height: 30px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    transition: background 0.15s linear;
+    display: block;
+  }
+  button.chip-button md-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0) scale(0.7);
+    color: white;
+    fill: white;
+  }
+  button.chip-button:hover, button.chip-button:focus {
+    background: rgba(255, 0, 0, 0.8);
+  }
+</style>
+
+<md-dialog aria-label="Update clip">
+  <md-dialog-content>
+    <form name="updateMovieForm" layout="row" layout-wrap flex="100">
+      <div flex="100" ng-show="errMsg" style="color:#e74c3c;"><h4>{{errMsg}}</h4></div>
+      <md-input-container flex="100">
+        <label>Code</label>
+        <input ng-model="movie.code" disabled>
+      </md-input-container>
+      <md-input-container flex="50" flex-sm="100">
+        <label>Active</label>
+        <input type="datetime-local" ng-model="activeDate"
+          placeholder="yyyy-MM-ddTHH:mm:ss" required>
+      </md-input-container>
+      <md-input-container flex="50" flex-sm="100">
+        <label>Expire</label>
+        <input type="datetime-local" ng-model="expireDate"
+          placeholder="yyyy-MM-ddTHH:mm:ss" min="{{activeDate}}" required>
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex-sm="100">
+        <label>director</label>
+        <input ng-model="movie.director">
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex-sm="100">
+        <label>year</label>
+        <input ng-model="movie.year">
+      </md-input-container>
+      <md-chips class="custom-chips" ng-model="movie.genres"
+        readonly="false"
+        placeholder="Enter genre tag"
+        delete-button-label="Remove Tag"
+        delete-hint="Press delete to remove tag"
+        secondary-placeholder="+Genre tag">
+        <md-chip-template>
+          <span>
+            <strong>{{$chip}}</strong>
+          </span>
+        </md-chip-template>
+        <button md-chip-remove class="md-primary chip-button">
+          <md-icon md-svg-icon="content:ic_clear_24px"></md-icon>
+        </button>
+      </md-chips>
+      <md-input-container flex="100">
+        <label>title</label>
+        <input ng-model="movie.title">
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>synopsis</label>
+        <input ng-model="movie.synopsis">
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" layout-align="end center">
+    <md-button  class="md-icon-button" ng-click="reset()" aria-label="Reset">
+      <md-icon md-svg-icon="action:ic_settings_backup_restore_24px"></md-icon>
+    </md-button>
+    <md-button
+      ng-click="updateMovie()"
+      class="md-primary">UPDATE</md-button>
+    <md-button ng-click="cancelUpdate()" class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>

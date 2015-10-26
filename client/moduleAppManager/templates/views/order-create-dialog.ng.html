@@ -1,0 +1,93 @@
+<style>
+  md-dialog.fullscreen-dialog{
+    height:100%;
+    width:100%;
+    max-height:100%;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    padding:0px;
+  }
+</style>
+
+<md-dialog class="fullscreen-dialog" aria-label="create new order">
+  <md-dialog-content style="padding:0px;">
+    <md-tabs style="height:100%;min-height:100%;"
+      md-border-bottom
+      md-dynamic-height="true"
+      md-stretch-tabs="auto"
+      md-no-bar="false"
+      md-no-pagination="true"
+      md-center-tabs="false"
+      md-no-ink="false">
+      <md-tab>
+        <md-tab-label><md-icon md-svg-icon="maps:ic_local_restaurant_24px"></md-icon></md-tab-label>
+        <md-tab-body>
+          <md-content
+            layout="row" layout-wrap layout-padding layout-align="center start">
+            <md-list flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+              <md-list-item ng-repeat-start="foodItem in foodItems" class="md-2-line" layout="row" layout-wrap>
+                <md-button class="md-icon-button"
+                  ng-click="foodItem.selected = false;"
+                  ng-show="foodItem.selected"
+                  style="width:32px;">
+                  <md-icon md-svg-icon="toggle:ic_check_box_24px" style="color:#00a388;"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button"
+                  ng-click="foodItem.selected = true;"
+                  ng-hide="foodItem.selected"
+                  style="width:32px;">
+                  <md-icon md-svg-icon="toggle:ic_check_box_outline_blank_24px"></md-icon>
+                </md-button>
+                <div class="md-list-item-text" style="padding-bottom:0px;">
+                  <h3><span style="line-height:24px;">{{ foodItem.title }}</span></h3>
+                  <p>Stock: {{foodItem.quantity}}</p>
+                </div>
+                <div flex="100" style="height:40px;margin-bottom:16px;"
+                  layout="row" layout-wrap layout-align="start center">
+                  <span style="color:#757575;">Quantity: </span>
+                  <md-input-container flex
+                    style="padding-top:0px;padding-bottom:0px;">
+                    <input type="number"
+                      ng-model="foodItem.quantity"
+                      style="text-align:center;margin-top:0px;margin-bottom:0px;">
+                  </md-input-container>
+                  <md-button class="md-icon-button"
+                    ng-click="addOrderQuantity(foodItem)" style="width:32px;">
+                    <md-icon md-svg-icon="content:ic_add_24px" style="color:#757575;"></md-icon>
+                  </md-button>
+                  <md-button class="md-icon-button"
+                    ng-click="reduceOrderQuantity(foodItem)" style="width:32px;">
+                    <md-icon md-svg-icon="content:ic_remove_24px" style="color:#757575;"></md-icon>
+                  </md-button>
+                </div>
+              </md-list-item>
+              <md-divider ng-repeat-end></md-divider>
+            </md-list>
+          </md-content>
+        </md-tab-body>
+      </md-tab>
+      <md-tab>
+        <md-tab-label><md-icon md-svg-icon="maps:ic_local_drink_24px"></md-icon></md-tab-label>
+        <md-tab-body>
+          <md-content flex
+            layout="row" layout-wrap layout-padding layout-align="center start"
+            style="padding-bottom:56px;">
+          </md-content>
+        </md-tab-body>
+      </md-tab>
+    </md-tabs>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" layout-align="end center">
+    <md-button
+      ng-click="createStation()"
+      class="md-primary">CREATE STATION</md-button>
+    <md-button
+      ng-click="cancelCreate()"
+      class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>

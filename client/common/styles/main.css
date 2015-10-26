@@ -1,0 +1,15 @@
+body {
+  background-color: rgba(0,0,0,.04);
+}
+:-webkit-full-screen {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: none;
+}
+md-list md-list-item.menu-item.active{
+  background-color:#ecf0f1;
+}
+md-list md-list-item.menu-item md-icon{
+  color:#2980b9;
+}

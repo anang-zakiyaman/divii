@@ -1,0 +1,61 @@
+<md-toolbar
+  layout="column"
+  layout-align="start center"
+  style="background-color:#2c3e50;">
+  <div class="md-toolbar-tools" layout-wrap>
+    <md-button  class="md-icon-button" hide-gt-md
+                ng-click="$parent.toggleSidenav('app-manager-sidenav')" aria-label="Show Menu">
+      <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+    </md-button>
+    <h2><span>Manage Train Info</span></h2>
+    <span flex></span>
+    <md-button  class="md-icon-button" ng-click="reset()" aria-label="Reset">
+      <md-icon md-svg-icon="action:ic_settings_backup_restore_24px"></md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+
+<md-content layout="column">
+  <div layout="row" layout-wrap layout-align="center start" flex="100" style="padding-bottom:80px;background-color:#ecf0f1;">
+    <form name="updateAccountForm" layout="row" layout-wrap layout-padding flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+      <md-whiteframe class="md-whiteframe-z3" flex="100"
+        layout layout-wrap layout-padding layout-align="center start"
+        style="margin-top:8px;margin-bottom:16px;padding-bottom:24px;padding-top:0px;background-color:#fff;">
+        <h5 class="md-title" style="margin-top:16px; margin-bottom:0px;" flex="100">Train</h5>
+        <md-input-container flex="100">
+          <label>Name</label>
+          <input ng-model="trainInfo.train.name">
+        </md-input-container>
+        <md-input-container flex="100">
+          <label>Train code</label>
+          <input ng-model="trainInfo.train.code" required>
+        </md-input-container>
+        <md-input-container flex="100">
+          <label>Train description</label>
+          <input md-maxlength="200" name="route-description" ng-model="trainInfo.train.description">
+        </md-input-container>
+      </md-whiteframe>
+      <md-whiteframe class="md-whiteframe-z3" flex="100"
+        layout layout-wrap layout-padding layout-align="center start"
+        style="margin-bottom:16px;padding-bottom:24px;padding-top:0px;background-color:#fff;">
+        <h5 class="md-title" style="margin-top:16px; margin-bottom:0px;" flex="100">Route</h5>
+        <md-input-container flex="100">
+          <label>Route name</label>
+          <input ng-model="trainInfo.route.name" required>
+        </md-input-container>
+        <md-input-container flex="100">
+          <label>Route Code</label>
+          <input ng-model="trainInfo.route.code" required>
+        </md-input-container>
+        <md-input-container flex="100">
+          <label>Route description</label>
+          <input md-maxlength="200" name="route-description" ng-model="trainInfo.route.description">
+        </md-input-container>
+      </md-whiteframe>
+    </form>
+  </div>
+</md-content>
+<md-button aria-label="update train info" class="md-fab md-fab-bottom-right md-raised md-primary"
+  ng-click="updateTrainInfo()">
+  <md-icon md-svg-icon="content:ic_save_24px"></md-icon>
+</md-button>

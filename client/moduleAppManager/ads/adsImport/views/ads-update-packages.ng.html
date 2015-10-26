@@ -1,0 +1,68 @@
+<style>
+  .item-action-menu .item-action-icon {color:#ECF0F1;margin-bottom:4px;}
+</style>
+
+<md-toolbar
+  layout="row"
+  layout-align="start center"
+  style="background-color:#2c3e50;">
+  <div class="md-toolbar-tools">
+    <md-button  class="md-icon-button" hide-gt-md
+                ng-click="$parent.toggleSidenav('app-manager-sidenav')" aria-label="Show Menu">
+      <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+    </md-button>
+    <h2><span>Ads Update Packages</span></h2>
+    <span flex></span>
+    <label class="md-raised md-button md-warn" md-ink-ripple for="file-input">
+      <span>upload</span>
+    </label>
+    <input id="file-input" type="file" ng-hide="true"
+        onchange="angular.element(this).scope().uploadPackage()">
+  </div>
+</md-toolbar>
+<md-content
+  layout="row" layout-wrap layout-padding layout-align="center start"
+  style="padding-bottom:56px;" flex>
+  <div flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+    <div
+      ng-repeat-start="adsUpdatePackage in adsUpdatePackages"
+      layout="row" layout-align="start start" layout-wrap>
+      <md-icon hide-sm md-svg-icon="action:ic_launch_24px"
+        ng-click="viewPackageContent(adsUpdatePackage._id)"
+        style="margin-top:8px;"></md-icon>
+      <div layout="column" layout-padding layout-align="start start" flex
+        style="padding-left:16px;">
+        <div><span class="md-subhead" style="line-height:24px;">{{adsUpdatePackage.original.name.substring(adsUpdatePackage.original.name.indexOf('_') + 1 ,adsUpdatePackage.original.name.lastIndexOf('.'))}}</span></div>
+        <div><span class="md-body-2" style="color:#757575;">{{ adsUpdatePackage.uploadedAt | date:'medium'}}</span></div>
+      </div>
+      <md-icon md-svg-icon="navigation:ic_menu_24px"
+          ng-click="openActionBar(adsUpdatePackage._id)"
+          ng-hide="opennedItemAction == adsUpdatePackage._id"
+          style="margin-top:8px;"></md-icon>
+      <md-icon md-svg-icon="content:ic_remove_24px"
+          ng-click="closeActionBar()"
+          ng-show="opennedItemAction == adsUpdatePackage._id"
+          style="color:#E74C3C;margin-top:8px;"></md-icon>
+      <md-progress-linear class="md-accent" md-mode="determinate"
+            ng-hide="adsUpdatePackage.uploadProgress() == 100"
+            ng-value="adsUpdatePackage.uploadProgress()"></md-progress-linear>
+      <div flex="100" style="background-color:#2980B9;height:40px;margin-bottom:16px;padding-right:0px;"
+        layout="row" layout-padding layout-wrap layout-align="start center"
+        ng-show="opennedItemAction == adsUpdatePackage._id">
+        <div style="width:48px;" layout layout-align="center center">
+          <md-icon md-svg-icon="action:ic_delete_24px"
+            ng-click="removePackage($event, adsUpdatePackage._id)"
+            style="color:white;"></md-icon>
+        </div>
+        <div flex></div>
+        <div
+          ng-click="publishPackageContent(adsUpdatePackage._id)"
+          layout-align="center center"
+          style="background-color:#F44336;color:#FFF;margin-right:0px;height:40px;width:80px;">
+          <span style="font-size:13px;padding-left:12px;line-height:40px;">PUBLISH</span>
+        </div>
+      </div>
+    </div>
+    <md-divider ng-repeat-end></md-divider>
+  </div>
+</md-content>

@@ -1,0 +1,41 @@
+<div layout="column" flex>
+  <md-toolbar
+    layout="row"
+    layout-align="start center"
+    style="background-color:#2c3e50;">
+    <div class="md-toolbar-tools">
+      <md-button  class="md-icon-button" hide-gt-md
+                  ng-click="toggleSidenav('left')" aria-label="Show Menu">
+        <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+      </md-button>
+      <h2><span>Your orders</span></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="More" ng-href="orders"
+        ng-show="orders.length > 0" style="color:#e74c3c;">
+        <md-icon md-svg-icon="action:ic_shopping_cart_24px" style="color:#e74c3c;"></md-icon> {{orders.length}}
+      </md-button>
+      <md-button class="md-icon-button" aria-label="More" ng-href="home">
+        <md-icon md-svg-icon="action:ic_home_24px"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-content layout="column" layout-fill flex>
+
+    <md-whiteframe class="md-whiteframe-z1" style="background-color:#ecf0f1;height:160px;" layout layout-align="center center">
+      <span>Available Ads Space</span>
+    </md-whiteframe>
+
+    <md-list flex>
+      <md-list-item class="md-2-line" ng-repeat="order in orders">
+        <img ng-src="{{contentServer+'/foods/'+order.item.id+'/small-image.png'}}" class="md-avatar" alt="Order" />
+        <div class="md-list-item-text" style="padding-right:24px;">
+          <p><b>{{order.item.title}}</b></p>
+          <p>{{order.item.currency}} {{order.item.price | number:0}} (<span style="color:#e74c3c;">{{order.status}}</span>)</p>
+        </div>
+        <md-icon class="md-secondary" ng-click="removeOrder(order)" aria-label="Chat"
+          md-svg-icon="navigation:ic_close_24px" style="color:#e74c3c;margin-top:0px;"></md-icon>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>

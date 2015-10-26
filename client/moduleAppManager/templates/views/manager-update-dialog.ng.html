@@ -1,0 +1,24 @@
+<md-dialog aria-label="Update manager">
+  <md-dialog-content>
+    <form name="updateAccountForm" layout="row" layout-wrap flex="100">
+      <div flex="100" ng-show="errMsg" style="color:#e74c3c;"><h4>{{errMsg}}</h4></div>
+      <md-input-container flex="100">
+        <label>Username</label>
+        <input ng-model="manager.username" required>
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Note</label>
+        <input ng-model="manager.profile.note">
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button
+      ng-click="updateManager()"
+      class="md-primary">UPDATE</md-button>
+    <md-button
+      ng-click="cancelUpdate()"
+      class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>

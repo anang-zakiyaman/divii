@@ -1,0 +1,51 @@
+<md-dialog aria-label="Create new ad space">
+  <md-dialog-content>
+    <form name="createAdsSpaceForm" layout="row" layout-wrap flex="100">
+      <div flex="100" ng-show="errMsg" style="color:#e74c3c;"><h4>{{errMsg}}</h4></div>
+      <md-input-container flex="100" style="max-height:64px;">
+        <md-select name="adsSpaceType" placeholder="Role" ng-model="adsSpace.type" required>
+          <md-option value="overlay">Overlay</md-option>
+          <md-option value="interstitial">Interstitial</md-option>
+          <md-option value="sponsorhip">Sponsorship</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex="50" flex-sm="100">
+        <label>Space code</label>
+        <input name="adsSpaceCode" ng-model="adsSpace.code"
+          ng-change="adsSpace.code = adsSpace.code.toUpperCase();" required>
+      </md-input-container>
+      <md-input-container flex="50" flex-sm="100">
+        <label>Title</label>
+        <input name="adsSpaceTitle" ng-model="adsSpace.title" required>
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Description</label>
+        <input name="adsSpaceDescription" ng-model="adsSpace.description">
+      </md-input-container>
+      <md-input-container flex-sm="100" flex-md="50" flex-gt-md="33">
+        <md-icon md-svg-icon="image:ic_image_aspect_ratio_24px"></md-icon>
+        <input type="number" ng-model="adsSpace.spec.widthR" placeholder="Width ratio">
+      </md-input-container>
+      <md-input-container flex-sm="100" flex-md="50" flex-gt-md="33">
+        <md-icon md-svg-icon="image:ic_image_aspect_ratio_24px"></md-icon>
+        <input type="number" ng-model="adsSpace.spec.heightR" placeholder="Height ratio">
+      </md-input-container>
+      <md-input-container flex-sm="100" flex-gt-md="33">
+        <md-icon md-svg-icon="image:ic_image_24px"></md-icon>
+        <input type="number" ng-model="adsSpace.spec.maxSize" placeholder="Max size (kb)">
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" layout-align="end center">
+    <md-button
+      ng-disabled="{{!(
+        createAdsSpaceForm.adsSpaceCode.$valid &&
+        createAdsSpaceForm.adsSpaceType.$valid &&
+        createAdsSpaceForm.adsSpaceTitle.$valid)}}"
+      ng-click="createAdsSpace()"
+      class="md-primary">CREATE SPACE</md-button>
+    <md-button
+      ng-click="cancelCreate()"
+      class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>

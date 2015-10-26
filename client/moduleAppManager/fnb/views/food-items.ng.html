@@ -1,0 +1,121 @@
+<style>
+  .item-action-menu .item-action-icon {color:#ECF0F1;margin-bottom:4px;}
+  .media-preview-icon{ color:white; }
+  .media-preview-icon.preview-selected{ color:#00a388;}
+</style>
+<md-toolbar
+  layout="column"
+  layout-align="start center"
+  style="background-color:#2c3e50;">
+  <div class="md-toolbar-tools" layout-wrap>
+    <md-button  class="md-icon-button" hide-gt-md
+                ng-click="$parent.toggleSidenav('app-manager-sidenav')" aria-label="Show Menu">
+      <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+    </md-button>
+    <h2><span>Food Items</span></h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+
+<md-content layout="row" layout-wrap layout-align="center start">
+  <div layout="row" layout-wrap layout-align="start start" flex="100"
+    style="background-color:#ecf0f1;min-height:48px;padding-left:16px;padding-right:16px;">
+    <md-input-container md-no-float style="margin-top:8px;padding-bottom:0px;font-size:16px;"
+      flex-sm="100">
+      <md-icon md-svg-icon="action:ic_search_24px"></md-icon>
+      <input ng-model="searchKey" type="text" placeholder="Search food items" aria-label="Search">
+    </md-input-container>
+    <div flex></div>
+    <dir-pagination-controls flex-sm="100"
+      pagination-id="appFoodItemsPagination"
+      on-page-change="pageChanged(newPageNumber)"
+      template-url="client/moduleAppManager/templates/views/app-pagination.ng.html">
+    </dir-pagination-controls>
+  </div>
+  <div layout="row" layout-padding layout-align="center start" flex="100">
+    <div flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+      <div
+        dir-paginate-start="foodItem in foodItems | itemsPerPage: perPage"
+        total-items="foodItemsCount.count"
+        pagination-id="appFoodItemsPagination"
+        layout="row" layout-align="start start" layout-wrap>
+        <div layout="column" layout-padding layout-align="start start" flex
+          style="padding-left:0px;">
+          <div>
+            <span class="md-subhead"
+              ng-click="viewFoodItem(foodItem._id)"
+              style="line-height:24px;">{{foodItem.title}}</span>
+          </div>
+          <div><span class="md-body-2" ng-show="foodItem._id == opennedItemAction" style="color:#757575;">{{foodItem.description}}</span></div>
+        </div>
+        <md-icon md-svg-icon="navigation:ic_menu_24px"
+            ng-click="openActionBar(foodItem._id)"
+            ng-hide="opennedItemAction == foodItem._id"
+            style="margin-top:8px;"></md-icon>
+        <md-icon md-svg-icon="content:ic_remove_24px"
+            ng-click="closeActionBar(); foodItem.showImage = false"
+            ng-show="opennedItemAction == foodItem._id"
+            style="color:#E74C3C;margin-top:8px;"></md-icon>
+        <div flex="100" style="height:40px;margin-bottom:16px;"
+          layout="row" layout-wrap layout-align="start center">
+          <md-button class="md-icon-button"
+            ng-click="foodItem.available = false;"
+            ng-show="foodItem.available"
+            style="width:32px;margin-left:-8px;">
+            <md-icon md-svg-icon="toggle:ic_check_box_24px" style="color:#00a388;"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button"
+            ng-click="foodItem.available = true;"
+            ng-hide="foodItem.available"
+            style="width:32px;margin-left:-8px;">
+            <md-icon md-svg-icon="toggle:ic_check_box_outline_blank_24px"></md-icon>
+          </md-button>
+          <span style="color:#757575;">Quantity: </span>
+          <md-input-container
+            style="padding-top:0px;padding-bottom:0px;">
+            <input type="number" ng-model="foodItem.quantity"
+              style="text-align:center;width:56px;margin-top:0px;margin-bottom:0px;">
+          </md-input-container>
+          <md-button class="md-icon-button"
+            ng-click="foodItem.quantity ? (foodItem.quantity = foodItem.quantity + 1) : foodItem.quantity = 1;"
+            style="width:32px;">
+            <md-icon md-svg-icon="content:ic_add_24px" style="color:#757575;"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button"
+            ng-click="foodItem.quantity ? (foodItem.quantity = foodItem.quantity - 1) : foodItem.quantity = 0;"
+            style="width:32px;">
+            <md-icon md-svg-icon="content:ic_remove_24px" style="color:#757575;"></md-icon>
+          </md-button>
+          <div flex></div>
+        </div>
+        <div flex="100" layout layout-align="center start"
+          ng-if="foodItem._id == opennedItemAction && foodItem.showImage">
+          <div flex-sm="100" flex-md="80" flex-lg="50" flex-gt-lg="40">
+            <md-card>
+              <img ng-src="{{ foodItemImageUrl(foodItem.image._id) }}" class="md-card-image" alt="{{ foodItem.title }} Image">
+            </md-card>
+          </div>
+        </div>
+        <div flex="100" style="background-color:#2980B9;height:40px;margin-bottom:16px;"
+          layout="row" layout-padding layout-wrap layout-align="start center"
+          ng-show="foodItem._id == opennedItemAction">
+          <md-button class="md-icon-button"
+            ng-click="foodItem.showImage ? (foodItem.showImage = false) : (foodItem.showImage = true);">
+            <md-icon md-svg-icon="image:ic_image_24px" class="media-preview-icon"
+              ng-class="{'preview-selected': foodItem.showImage}"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button"
+            ng-click="updateFoodItem($event, foodItem._id)">
+            <md-icon md-svg-icon="content:ic_create_24px" style="color:white;"></md-icon>
+          </md-button>
+          <div flex></div>
+          <md-button class="md-icon-button"
+            ng-click="removeFoodItem($event, foodItem)">
+            <md-icon md-svg-icon="action:ic_delete_24px" style="color:white;"></md-icon>
+          </md-button>
+        </div>
+      </div>
+      <md-divider dir-paginate-end></md-divider>
+    </div>
+  </div>
+</md-content>

@@ -1,0 +1,125 @@
+<style>
+  .item-action-menu .item-action-icon {color:#ECF0F1;margin-bottom:4px;}
+</style>
+
+<md-toolbar
+  layout="row"
+  layout-align="start center"
+  style="background-color:#2c3e50;">
+  <div class="md-toolbar-tools">
+    <md-button  class="md-icon-button" hide-gt-md
+                ng-click="$parent.toggleSidenav('app-manager-sidenav')" aria-label="Show Menu">
+      <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+    </md-button>
+    <h2><span>Manage Accounts</span></h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+
+
+<md-tabs
+  layout-fill flex
+  md-border-bottom
+  md-dynamic-height="false"
+  md-stretch-tabs="auto"
+  md-no-pagination="false"
+  md-center-tabs="false"
+  md-no-ink="true">
+  <md-tab>
+    <md-tab-label>FnB</md-tab-label>
+    <md-tab-body>
+      <md-content
+        layout="row" layout-wrap layout-padding layout-align="center start"
+        style="padding-bottom:56px;" flex>
+        <div flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+          <div
+            ng-repeat-start="fnbManager in fnbManagers"
+            layout="row" layout-align="start start" layout-wrap>
+            <md-icon hide-sm md-svg-icon="action:ic_account_circle_24px" style="margin-top:8px;"></md-icon>
+            <div layout="column" layout-padding layout-align="start start" flex
+              style="padding-left:16px;">
+              <div><span class="md-subhead" style="line-height:24px;">{{ fnbManager.username }}</span></div>
+              <div><span class="md-body-2" style="color:#757575;">{{ fnbManager.profile.note }}</span></div>
+            </div>
+            <md-icon md-svg-icon="navigation:ic_menu_24px"
+                ng-click="openActionBar(fnbManager._id)"
+                ng-hide="opennedItemAction == fnbManager._id"
+                style="margin-top:8px;"></md-icon>
+            <md-icon md-svg-icon="content:ic_remove_24px"
+                ng-click="closeActionBar()"
+                ng-show="opennedItemAction == fnbManager._id"
+                style="color:#E74C3C;margin-top:8px;"></md-icon>
+            <div flex="100" style="background-color:#2980B9;height:40px;margin-bottom:16px;"
+              layout="row" layout-padding layout-wrap layout-align="start center"
+              ng-show="fnbManager._id == opennedItemAction">
+              <md-button class="md-icon-button" aria-label="Reset password"
+                ng-click="resetPassword($event, fnbManager)">
+                <md-icon md-svg-icon="action:ic_lock_24px" style="color:white;"></md-icon>
+              </md-button>
+              <md-button class="md-icon-button" aria-label="Update profile"
+                ng-click="updateManager($event, fnbManager)">
+                <md-icon md-svg-icon="content:ic_create_24px" style="color:white;"></md-icon>
+              </md-button>
+              <div flex></div>
+              <md-button class="md-icon-button" aria-label="Remove FnB Manager"
+                ng-click="removeManager($event, fnbManager)">
+                <md-icon md-svg-icon="action:ic_delete_24px" style="color:white;"></md-icon>
+              </md-button>
+            </div>
+          </div>
+          <md-divider ng-repeat-end></md-divider>
+        </div>
+      </md-content>
+    </md-tab-body>
+  </md-tab>
+  <md-tab layout-fill>
+    <md-tab-label>Trip</md-tab-label>
+    <md-tab-body layout-fill>
+      <md-content layout="row" layout-fill layout-padding layout-align="center start"
+        style="padding-bottom:56px;" flex>
+        <div flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+          <div
+            ng-repeat-start="tripManager in tripManagers"
+            layout="row" layout-align="start start" layout-wrap>
+            <md-icon hide-sm md-svg-icon="action:ic_account_circle_24px" style="margin-top:8px;"></md-icon>
+            <div layout="column" layout-padding layout-align="start start" flex
+              style="padding-left:16px;">
+              <div><span class="md-subhead">{{ tripManager.username }}</span></div>
+              <div><span class="md-body-2" style="color:#757575;">{{ tripManager.profile.note }}</span></div>
+            </div>
+            <md-icon md-svg-icon="navigation:ic_menu_24px"
+                ng-click="openActionBar(tripManager._id)"
+                ng-hide="opennedItemAction == tripManager._id"
+                style="margin-top:8px;"></md-icon>
+            <md-icon md-svg-icon="content:ic_remove_24px"
+                ng-click="closeActionBar()"
+                ng-show="opennedItemAction == tripManager._id"
+                style="color:#E74C3C;margin-top:8px;"></md-icon>
+            <div flex="100" style="background-color:#2980B9;height:40px;margin-bottom:16px;"
+              layout="row" layout-padding layout-wrap layout-align="start center"
+              ng-show="tripManager._id == opennedItemAction">
+              <md-button class="md-icon-button" aria-label="Reset password"
+                ng-click="resetPassword($event, tripManager)">
+                <md-icon md-svg-icon="action:ic_lock_24px" style="color:white;"></md-icon>
+              </md-button>
+              <md-button class="md-icon-button" aria-label="Update profile"
+                ng-click="updateManager($event, tripManager)">
+                <md-icon md-svg-icon="content:ic_create_24px" style="color:white;"></md-icon>
+              </md-button>
+              <div flex></div>
+              <md-button class="md-icon-button" aria-label="Remove FnB Manager"
+                ng-click="removeManager($event, tripManager)">
+                <md-icon md-svg-icon="action:ic_delete_24px" style="color:white;"></md-icon>
+              </md-button>
+            </div>
+          </div>
+          <md-divider ng-repeat-end></md-divider>
+        </div>
+      </md-content>
+    </md-tab-body>
+  </md-tab>
+</md-tabs>
+<md-button aria-label="create new manager account" class="md-fab md-fab-bottom-right md-raised md-warn"
+  ng-click="createManager($event)">
+  <md-icon md-svg-icon="content:ic_add_24px"></md-icon>
+</md-button>

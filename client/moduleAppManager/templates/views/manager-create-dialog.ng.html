@@ -1,0 +1,35 @@
+<md-dialog aria-label="Create new manager">
+  <md-dialog-content>
+    <form name="createAccountForm" layout="row" layout-wrap flex="100">
+      <div flex="100" ng-show="errMsg" style="color:#e74c3c;"><h4>{{errMsg}}</h4></div>
+      <md-input-container flex="50" flex-sm="100">
+        <label>Username</label>
+        <input ng-model="manager.username" required>
+      </md-input-container>
+      <md-input-container flex="50" flex-sm="100">
+        <label>Initial password</label>
+        <input ng-model="manager.password">
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Note</label>
+        <input ng-model="manager.profile.note">
+      </md-input-container>
+      <md-input-container flex="100">
+        <md-select placeholder="Role" ng-model="manager.profile.role" required>
+          <md-option value="fnb-manager">FnB Manager</md-option>
+          <md-option value="trip-manager">Trip Manager</md-option>
+        </md-select>
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button
+      ng-disabled="manager.profile.role == ''"
+      ng-click="createManager()"
+      class="md-primary">CREATE</md-button>
+    <md-button
+      ng-click="cancelCreate()"
+      class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>

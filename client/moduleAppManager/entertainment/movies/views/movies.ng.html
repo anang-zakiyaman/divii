@@ -1,0 +1,102 @@
+<style>
+  .item-action-menu .item-action-icon {color:#ECF0F1;margin-bottom:4px;}
+  .media-preview-icon{ color:white; }
+  .media-preview-icon.preview-selected{ color:#00a388;}
+</style>
+<md-toolbar
+  layout="row"
+  layout-align="start center"
+  style="background-color:#2c3e50;">
+  <div class="md-toolbar-tools">
+    <md-button  class="md-icon-button" hide-gt-md aria-label="Show Menu"
+      ng-click="$parent.toggleSidenav('app-manager-sidenav')">
+      <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+    </md-button>
+    <h2><span>Manage Movies</span></h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+<md-content layout="row" layout-wrap layout-align="center start">
+  <div layout="row" layout-wrap layout-align="start start" flex="100"
+    style="background-color:#ecf0f1;min-height:48px;padding-left:16px;padding-right:16px;">
+    <md-input-container md-no-float style="margin-top:8px;padding-bottom:0px;font-size:16px;"
+      flex-sm="100">
+      <md-icon md-svg-icon="action:ic_search_24px"></md-icon>
+      <input ng-model="searchKey" type="text" placeholder="Search movies" aria-label="Search">
+    </md-input-container>
+    <div flex></div>
+    <dir-pagination-controls flex-sm="100"
+      pagination-id="appMoviesPagination"
+      on-page-change="pageChanged(newPageNumber)"
+      template-url="client/moduleAppManager/templates/views/app-pagination.ng.html">
+    </dir-pagination-controls>
+  </div>
+  <div layout="row" layout-padding layout-align="center start" flex="100">
+    <div flex-sm="100" flex-md="80" flex-lg="75" flex-gt-lg="60">
+      <div
+        dir-paginate-start="movie in movies | itemsPerPage: perPage"
+        total-items="moviesCount.count"
+        pagination-id="appMoviesPagination"
+        layout="row" layout-align="start start" layout-wrap>
+        <md-icon hide-sm md-svg-icon="action:ic_launch_24px" ng-click=""
+          style="margin-top:8px;"></md-icon>
+        <div layout="column" layout-padding layout-align="start start" flex
+          style="padding-left:16px;">
+          <div>
+            <span class="md-subhead"
+              ng-click="viewMovie(movie._id)"
+              style="line-height:24px;">{{ movie.title }}</span>
+          </div>
+          <div><span class="md-body-2" style="color:#757575;">{{movie.activeDate | date:'d/M/yy'}} - {{movie.expireDate | date:'d/M/yy'}}</span></div>
+          <div ng-show="isActive(movie.activeDate, movie.expireDate)">
+            <span class="md-body-2" style="color:#E74C3C;"> ACTIVE</span>
+          </div>
+        </div>
+        <md-icon md-svg-icon="navigation:ic_menu_24px"
+            ng-click="openActionBar(movie._id)"
+            ng-hide="opennedItemAction == movie._id"
+            style="margin-top:8px;"></md-icon>
+        <md-icon md-svg-icon="content:ic_remove_24px"
+            ng-click="closeActionBar(); movie.showCoverImage = false; movie.showPreview = false;"
+            ng-show="opennedItemAction == movie._id"
+            style="color:#E74C3C;margin-top:8px;"></md-icon>
+        <div flex="100" ng-if="movie._id == opennedItemAction && movie.showCoverImage">
+          <md-card>
+            <img ng-src="{{coverImageUrl(movie.cover.image._id)}}" class="md-card-image" alt="{{ movie.title }} Cover">
+          </md-card>
+        </div>
+        <div flex="100" ng-if="movie._id == opennedItemAction && movie.showPreview">
+          <md-card>
+            <video width="100%" controls>
+              <source ng-src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+            </video>
+          </md-card>
+        </div>
+        <div flex="100" style="background-color:#2980B9;height:40px;margin-bottom:16px;"
+          layout="row" layout-padding layout-wrap layout-align="start center"
+          ng-show="movie._id == opennedItemAction">
+          <md-button class="md-icon-button"
+            ng-click="movie.showPreview = false; movie.showCoverImage ? (movie.showCoverImage = false) : (movie.showCoverImage = true);">
+            <md-icon md-svg-icon="image:ic_image_24px" class="media-preview-icon"
+              ng-class="{'preview-selected': movie.showCoverImage}"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button"
+            ng-click="movie.showCoverImage = false; movie.showPreview ? (movie.showPreview = false) : (movie.showPreview = true);">
+            <md-icon md-svg-icon="av:ic_play_circle_outline_24px" class="media-preview-icon"
+              ng-class="{'preview-selected': movie.showPreview}"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button"
+            ng-click="updateMovie($event, movie._id)">
+            <md-icon md-svg-icon="content:ic_create_24px" style="color:white;"></md-icon>
+          </md-button>
+          <div flex></div>
+          <md-button class="md-icon-button"
+            ng-click="removeMovie($event, movie)">
+            <md-icon md-svg-icon="action:ic_delete_24px" style="color:white;"></md-icon>
+          </md-button>
+        </div>
+      </div>
+      <md-divider dir-paginate-end></md-divider>
+    </div>
+  </div>
+</md-content>

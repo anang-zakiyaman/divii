@@ -1,0 +1,107 @@
+<style>
+  input.user-input-uppercase{
+    text-transform: uppercase;
+  }
+  input.user-input-capitalize{
+    text-transform: capitalize;
+  }
+  input.user-input-number{
+    border:none;
+    /*min-width:55px;*/
+    text-align:center;
+  }
+
+</style>
+
+<md-content layout="row" layout-wrap flex layout-padding layout-align="center start">
+
+  <div layout="row" layout-align="center center" layout-padding flex-sm="100" flex-md="80" flex-gt-md="60">
+    <img src="/assets/images/kai_logo.jpg" alt="Partner" style="width:288px;height:160px;">
+  </div>
+
+  <div layout="row" layout-wrap layout-align="center start" flex-sm="100" flex-md="80" flex-gt-md="60">
+
+    <div layout layout-padding flex="100" ng-show="error" class="md-warn">
+      <small>{{ error }}</small>
+    </div>
+
+    <form name="userForm" layout="row" layout-fill layout-wrap flex="100" style="margin-bottom:32px;">
+      <div layout="row" layout-fill layout-wrap flex="100" layout-align="start start">
+        <md-input-container flex="50" flex-sm="100">
+          <label>Kelas</label>
+          <md-select ng-model="user.ticket.class" ng-required="true">
+            <md-option value="EKSEKUTIF">Eksekutif</md-option>
+            <md-option value="BISNIS">Bisnis</md-option>
+            <md-option value="EKONOMI">Ekonomi</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex="50" flex-sm="100">
+          <label>Gerbong</label>
+          <input type="number" ng-model="user.ticket.coach" ng-required="true">
+        </md-input-container>
+        <md-input-container flex="50" flex-sm="100">
+          <label>Baris</label>
+          <input type="number" ng-model="user.ticket.row" ng-required="true">
+        </md-input-container>
+        <md-input-container flex="50" flex-sm="100">
+          <label>Kursi</label>
+          <md-select ng-model="user.ticket.seat" ng-required="true">
+            <md-option value="A">A</md-option>
+            <md-option value="B">B</md-option>
+            <md-option value="C">C</md-option>
+            <md-option value="D">D</md-option>
+            <md-option value="E">E</md-option>
+            <md-option value="F">F</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex="100">
+          <label>Kode tiket</label>
+          <input class="user-input-uppercase" ng-model="user.ticket.code" ng-required="true">
+        </md-input-container>
+      </div>
+
+      <div layout flex="100" layout-align="center start" ng-hide="registrationFormHidden">
+        <md-input-container flex>
+          <label>Name</label>
+          <input class="user-input-capitalize" type="text" ng-model="user.name">
+        </md-input-container>
+        <md-select placeholder="Gender" ng-model="user.gender" style="width:auto;">
+          <md-option value="male">Male</md-option>
+          <md-option value="female">Female</md-option>
+        </md-select>
+      </div>
+      <div layout="row" flex="100" ng-hide="registrationFormHidden">
+        <div layout layout-align="center center" flex="15">
+          <span class="md-body-1">Age</span>
+        </div>
+        <md-slider flex min="5" max="100" ng-model="user.age" aria-label="age" id="age-slider" class="age-slider md-primary">
+        </md-slider>
+        <div layout layout-align="center center" flex="20" style="padding-left:10px;text-align:center;">
+          <input  type="number" ng-model="user.age" class="user-input-number"
+                  aria-label="age" aria-controls="age-slider">
+        </div>
+      </div>
+
+      <div layout="row" layout-wrap layout-align="center start" flex="100" ng-show="registrationFormHidden">
+        <md-button  style="background-color:#2c3e50;color:#ecf0f1;" ng-click="login()"
+                    flex-sm flex-gt-sm="35">Sign-in*</md-button>
+      </div>
+      <div layout="row" layout-wrap layout-align="center start" flex="100" ng-hide="registrationFormHidden">
+        <md-button  style="background-color:#2c3e50;color:#ecf0f1;" ng-click="register()"
+                    flex-sm flex-gt-sm="35">Register Ticket</md-button>
+      </div>
+    </form>
+
+    <div layout="row" layout-wrap layout-align="center start" flex="100" ng-hide="registrationFormHidden">
+      <md-button class="md-primary" flex="100" ng-click="hideRegistrationForm(true)">Back to sign-in form</md-button>
+    </div>
+
+    <div layout="row" layout-wrap layout-align="center start" flex="100" ng-show="registrationFormHidden">
+      <div flex="100" layout-align="center center">
+        <div class="md-caption" flex="60" style="color:#777;text-align:center;">* first time ?, please register your ticket first</div>
+      </div>
+      <md-button class="md-primary" flex="100" ng-click="hideRegistrationForm(false)">Register your ticket</md-button>
+    </div>
+  </div>
+
+</md-content>

@@ -1,0 +1,27 @@
+<md-dialog aria-label="Update Image Ad">
+  <md-dialog-content>
+    <form name="updateImageAdForm" layout="row" layout-wrap flex="100">
+      <div flex="100" ng-show="errMsg" style="color:#e74c3c;"><h4>{{errMsg}}</h4></div>
+      <md-input-container flex="50" flex-sm="100">
+        <label>Title</label>
+        <input name="imageAdTitle" ng-model="imageAd.title" required>
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Active date</label>
+        <input ng-model="imageAd.activeDate">
+      </md-input-container>
+      <md-input-container flex="100">
+        <label>Expire data</label>
+        <input ng-model="imageAd.expireDate">
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" layout-align="end center">
+    <md-button ng-click="reset()" class="md-primary">RESET</md-button>
+    <md-button
+      ng-disabled="{{!(updateImageAdForm.imageAdTitle.$valid)}}"
+      ng-click="updateImageAd()"
+      class="md-primary">UPDATE</md-button>
+    <md-button ng-click="cancelUpdate()" class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>

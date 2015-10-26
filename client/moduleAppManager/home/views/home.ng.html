@@ -1,0 +1,27 @@
+  <md-toolbar
+    layout="row"
+    layout-align="start center"
+    style="background-color:#2c3e50;">
+    <div class="md-toolbar-tools">
+      <md-button  class="md-icon-button" hide-gt-md aria-label="Show Menu"
+        ng-click="$parent.toggleSidenav('app-manager-sidenav')" >
+        <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+      </md-button>
+      <h2><span>Home</span></h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+
+  <md-content
+    layout="row" layout-wrap layout-padding layout-align="center start"
+    style="padding-top:32px;" flex>
+    <md-whiteframe class="md-whiteframe-z2"
+      layout="row" layout-align="start center"
+      ng-repeat="menu in menus"
+      ng-click="$parent.navigateToPage(menu.state)"
+      flex-sm="90" flex-md="80" flex-gt-md="60"
+      style="margin-bottom:8px;">
+      <md-icon md-svg-icon="{{menu.icon}}" style="color:#2c3e50;margin-right:16px;"></md-icon>
+      <div flex><span>{{menu.title}}</span></div>
+    </md-whiteframe>
+  </md-content>

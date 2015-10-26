@@ -1,0 +1,84 @@
+
+  <!-- Side navigation bar =====================================================-->
+  <md-sidenav
+    ng-show="$root.currentUser"
+    class="site-sidenav md-sidenav-left md-whiteframe-z2"
+    md-component-id="divii-sidenav"
+    md-is-locked-open="lockSidenavEnabled && $mdMedia('gt-md')"
+    layout="column">
+
+    <!-- Side navigation tool bar ================================================-->
+    <md-toolbar class="md-whiteframe-z1" style="background-color:#2c3e50;">
+      <div class="md-toolbar-tools">
+        <h2><span>Divi-i</span></h2>
+        <span flex></span>
+        <md-button ng-href="/logout">SIGN OUT</md-button>
+        <md-button class="md-icon-button" aria-label="More" hide-gt-md ng-click="toggleSidenav('divii-sidenav')">
+          <md-icon md-svg-icon="navigation:ic_close_24px" style="color:#e74c3c;">
+          </md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <!-- Side navigation content =================================================-->
+    <md-list>
+      <md-list-item layout="row" layout-align="space-around center">
+        <md-button flex class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="maps:ic_directions_bus_24px" style="color:#777;"></md-icon>
+        </md-button>
+        <md-button flex class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="maps:ic_flight_24px" style="color:#777;"></md-icon>
+        </md-button>
+        <md-button flex class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="maps:ic_directions_subway_24px" style="color:#2980b9;"></md-icon>
+        </md-button>
+        <md-button flex class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="maps:ic_directions_ferry_24px" style="color:#777;"></md-icon>
+        </md-button>
+      </md-list-item>
+      <md-divider style="border-top-color:#2980b9;"></md-divider>
+      <md-list-item class="md-2-line" style="background-color:#ecf0f1;">
+        <md-icon md-svg-icon="action:ic_account_circle_24px" style="color:#e74c3c;margin-top:15px"></md-icon>
+        <div class="md-list-item-text" style="padding-top:15px; padding-bottom:5px;">
+          <h3>{{currentUser.profile.name}}</h3>
+          <p>{{currentUser.profile.gender}}, {{currentUser.profile.age}}th</p>
+        </div>
+      </md-list-item>
+      <md-list-item>
+        <md-icon md-svg-icon="action:ic_verified_user_24px" style="color:#00a388;margin-top:10px;margin-bottom:10px"></md-icon>
+        <p>Seat</p>
+        <div class="md-secondary"><p style="text-transform:uppercase;">{{currentUser.profile.transportation.ticket.class}} ({{currentUser.profile.transportation.ticket.coach}}/{{currentUser.profile.transportation.ticket.row}}{{currentUser.profile.transportation.ticket.seat}})</p></div>
+      </md-list-item>
+      <md-list-item>
+        <md-icon md-svg-icon="action:ic_verified_user_24px" style="color:#00a388;margin-top:10px;margin-bottom:10px"></md-icon>
+        <p>Ticket</p>
+        <div class="md-secondary"><p style="text-transform:uppercase;">{{currentUser.profile.transportation.ticket.code}}</p></div>
+      </md-list-item>
+      <md-divider style="border-top-color:#2980b9;"></md-divider>
+      <md-subheader class="md-no-sticky">Services</md-subheader>
+      <md-list-item ng-click="navigateToPage('divii.movies')" class="menu-item" ng-class="linkStatus('/divii/movies')">
+        <md-icon md-svg-icon="av:ic_movie_24px"></md-icon>
+        <p>Watch movies</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateToPage('divii.clips')" class="menu-item" ng-class="linkStatus('/divii/clips')">
+        <md-icon md-svg-icon="av:ic_video_collection_24px"></md-icon>
+        <p>Clips and Talks</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateToPage('divii.fnbMenu')" class="menu-item" ng-class="linkStatus('/divii/fnb-menu')">
+        <md-icon md-svg-icon="maps:ic_local_restaurant_24px"></md-icon>
+        <p>Food and Beverages</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateToPage('divii.fnbOrders')" class="menu-item" ng-class="linkStatus('/divii/fnb-orders')">
+        <md-icon md-svg-icon="action:ic_shopping_cart_24px"></md-icon>
+        <p>Your orders</p>
+        <div class="md-secondary"  style="color:#e74c3c;">{{$root.numberOfOrders.count}}</div>
+      </md-list-item>
+      <md-list-item ng-click="navigateToPage('divii.notifications')" class="menu-item" ng-class="linkStatus('/divii/notifications')">
+        <md-icon md-svg-icon="social:ic_notifications_24px"></md-icon>
+        <p>Notifications</p>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+
+  <!-- Container ===============================================================-->
+  <md-content ui-view layout="row" layout-fill></md-content>

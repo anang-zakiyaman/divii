@@ -1,0 +1,92 @@
+<style>
+#divii_video{
+  background-color:#000;
+}
+#divii_video_html5_api{
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+
+}
+.vjs-control-bar{
+  display:none;
+}
+</style>
+
+<div layout="column" flex>
+  <md-toolbar
+    layout="row"
+    layout-align="start center"
+    style="background-color:#2c3e50;">
+    <div class="md-toolbar-tools">
+      <md-button  class="md-icon-button" hide-gt-md
+                  ng-click="toggleSidenav('left')" aria-label="Show Menu">
+        <md-icon md-svg-icon="navigation:ic_menu_24px" style="color:white;"></md-icon>
+      </md-button>
+      <h2><span>Playing</span></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="More" ng-href="orders"
+        ng-show="orders.length > 0" style="color:#e74c3c;">
+        <md-icon md-svg-icon="action:ic_shopping_cart_24px" style="color:#e74c3c;"></md-icon> {{orders.length}}
+      </md-button>
+      <md-button class="md-icon-button" aria-label="More" ng-href="home">
+        <md-icon md-svg-icon="action:ic_home_24px"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-content layout="row" layout-wrap>
+    <div layout="row" layout-align="center center" style="background-color:#000;" ng-hide="!showVideoPlayer" flex="100">
+      <div layout="row" flex-gt-md="80" flex-gt-lg="75" layout-fill layout-align="center center">
+        <video id="divii_video" width="auto" height="auto" class="video-js vjs-default-skin"
+        data-setup='{"nativeControlsForTouch": true}' layout="column" layout-align="end center">
+         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+      </div>
+    </div>
+    <div layout-padding layout="row" flex="100">
+      <div layout="column" layout-fill flex>
+        <h2 class="md-title">{{movie.title}} ({{movie.year}})</h2>
+        <p class="md-subhead">Directed by <b><span>{{movie.director}}</span></b></p>
+        <span class="md-caption">Duration: {{movie.duration}} min</span>
+      </div>
+      <div layout="row" layout-align="end start" style="width:72px;">
+        <md-button class="md-fab" aria-label="Play movie"
+          ng-click="initVideoPlayer()"
+          ng-hide="!showInitButton"
+          style="background-color:#e74c3c">
+          <md-icon md-svg-icon="av:ic_play_arrow_24px" style="height:48px;width:48px;"></md-icon>
+        </md-button>
+      </div>
+    </div>
+    <div layout="row" layout-padding flex="100">
+      <p class="md-body-1">{{movie.synopsis}}</p>
+    </div>
+    <div layout="row" layout-padding flex="100" style="border-bottom:2px solid #3498db;">
+      <h3 class="md-subhead" style="color:#3d4c53;"><b>Casts</b></h3>
+    </div>
+    <div layout="row" layout-padding layout-wrap layout-align="space-around center" flex="100">
+      <md-whiteframe ng-repeat="actor in movie.actors"
+        class="md-whiteframe-z1"
+        flex-sm="85"
+        flex-md="45"
+        flex-lg="30"
+        flex-gt-lg="20"
+        style="margin-bottom:20px;">
+        <h4 style="margin-bottom:0px;margin-top:0px;">
+          <span>
+            <md-icon
+              md-svg-icon="action:ic_assignment_ind_24px"
+              style="color:#ff3800;width:24px;height:24px;"
+              aria-label="actor">
+            </md-icon>
+          </span>
+          {{actor.name}}
+        </h4>
+        <p style="margin-top:3px;margin-bottom:0px;padding-left:28px;">
+          <span class="md-caption" style="color:#888">as {{actor.character}}</span>
+        </p>
+      </md-whiteframe>
+    </div>
+  </md-content>
+</div>

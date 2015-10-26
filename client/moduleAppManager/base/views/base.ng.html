@@ -1,0 +1,216 @@
+<style>
+  .sidenav-link-icon {color:#2c3e50;}
+  span.menu-expanded {color:#F44336;}
+</style>
+
+  <!-- Side navigation bar =====================================================-->
+  <md-sidenav
+    ng-show="$root.currentUser"
+    class="site-sidenav md-sidenav-left md-whiteframe-z2"
+    md-component-id="app-manager-sidenav"
+    md-is-locked-open="$mdMedia('gt-md')"
+    layout="column" layout-fill>
+
+    <!-- Side navigation tool bar ================================================-->
+    <md-toolbar class="md-whiteframe-z1" style="background-color:#2c3e50;">
+      <div class="md-toolbar-tools">
+        <h2><span>App Manager</span></h2>
+        <span flex></span>
+        <md-button ng-href="/logout">SIGN OUT</md-button>
+        <md-button class="md-icon-button" aria-label="More" hide-gt-md
+          ng-click="toggleSidenav('app-manager-sidenav')">
+          <md-icon md-svg-icon="navigation:ic_close_24px" style="color:#e74c3c;">
+          </md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <!-- Side navigation content =================================================-->
+    <md-content>
+      <md-list>
+        <md-subheader class="md-no-sticky" ng-click="menuList.settingMenu.expanded = !menuList.settingMenu.expanded" style="outline: none;">
+          <md-icon
+            md-svg-icon="navigation:ic_expand_more_24px"
+            ng-hide="menuList.settingMenu.expanded"
+            style="color:#2c3e50;margin-right:8px"></md-icon>
+          <md-icon
+            md-svg-icon="navigation:ic_expand_less_24px"
+            ng-show="menuList.settingMenu.expanded"
+            style="color:#F44336;margin-right:8px"></md-icon>
+          <span ng-class="{'menu-expanded':menuList.settingMenu.expanded}">Basic settings</span>
+        </md-subheader>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.contentServer'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/config/content-server')"
+          ng-if="menuList.settingMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="action:ic_settings_input_antenna_24px"></md-icon>
+          <p>Content server</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.accounts'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/accounts')"
+          ng-if="menuList.settingMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="action:ic_account_circle_24px"></md-icon>
+          <p>Accounts</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+      <md-list>
+        <md-subheader class="md-no-sticky" ng-click="menuList.adsMenu.expanded = !menuList.adsMenu.expanded" style="outline: none;">
+          <md-icon
+            md-svg-icon="navigation:ic_expand_more_24px"
+            ng-hide="menuList.adsMenu.expanded"
+            style="color:#2c3e50;margin-right:8px"></md-icon>
+          <md-icon
+            md-svg-icon="navigation:ic_expand_less_24px"
+            ng-show="menuList.adsMenu.expanded"
+            style="color:#F44336;margin-right:8px"></md-icon>
+          <span ng-class="{'menu-expanded':menuList.adsMenu.expanded}">Advertising</span>
+        </md-subheader>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.imageAdsSpaces'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/image-ads')"
+          ng-if="menuList.adsMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="image:ic_collections_24px"></md-icon>
+          <p>Image Ads</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.videoAds'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/video-ads')"
+          ng-if="menuList.adsMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="action:ic_shop_two_24px"></md-icon>
+          <p>Video Ads</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.adsUpdatePackages'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/ads/import/updatePackages')"
+          ng-if="menuList.adsMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="av:ic_playlist_add_24px"></md-icon>
+          <p>Ads update packages</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+      <md-list>
+        <md-subheader class="md-no-sticky" ng-click="menuList.mediaContentMenu.expanded = !menuList.mediaContentMenu.expanded" style="outline: none;">
+          <md-icon
+            md-svg-icon="navigation:ic_expand_more_24px"
+            ng-hide="menuList.mediaContentMenu.expanded"
+            style="color:#2c3e50;margin-right:8px"></md-icon>
+          <md-icon
+            md-svg-icon="navigation:ic_expand_less_24px"
+            ng-show="menuList.mediaContentMenu.expanded"
+            style="color:#F44336;margin-right:8px"></md-icon>
+          <span ng-class="{'menu-expanded':menuList.mediaContentMenu.expanded}">Media content</span>
+        </md-subheader>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.clips'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/clips')"
+          ng-if="menuList.mediaContentMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="av:ic_video_collection_24px"></md-icon>
+          <p>Clips</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.movies'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/movies')"
+          ng-if="menuList.mediaContentMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="av:ic_movie_24px"></md-icon>
+          <p>Movies</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.entertainmentUpdatePackages'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/entertainment/updatePackages')"
+          ng-if="menuList.mediaContentMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="av:ic_playlist_add_24px"></md-icon>
+          <p>Video update packages</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+      <md-list>
+        <md-subheader class="md-no-sticky" ng-click="menuList.trainMenu.expanded = !menuList.trainMenu.expanded" style="outline: none;">
+          <md-icon
+            md-svg-icon="navigation:ic_expand_more_24px"
+            ng-hide="menuList.trainMenu.expanded"
+            style="color:#2c3e50;margin-right:8px"></md-icon>
+          <md-icon
+            md-svg-icon="navigation:ic_expand_less_24px"
+            ng-show="menuList.trainMenu.expanded"
+            style="color:#F44336;margin-right:8px"></md-icon>
+          <span ng-class="{'menu-expanded':menuList.trainMenu.expanded}">Train</span>
+        </md-subheader>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.trainInfo'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/train/info')"
+          ng-if="menuList.trainMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="maps:ic_directions_subway_24px"></md-icon>
+          <p>Train info</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.stations'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/train/stations')"
+          ng-if="menuList.trainMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="maps:ic_pin_drop_24px"></md-icon>
+          <p>Stations</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.tripAlerts'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/train')"
+          ng-if="menuList.trainMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="action:ic_announcement_24px"></md-icon>
+          <p>Trip alerts</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+      <md-list>
+        <md-subheader class="md-no-sticky" ng-click="menuList.fnbMenu.expanded = !menuList.fnbMenu.expanded" style="outline: none;">
+          <md-icon
+            md-svg-icon="navigation:ic_expand_more_24px"
+            ng-hide="menuList.fnbMenu.expanded"
+            style="color:#2c3e50;margin-right:8px"></md-icon>
+          <md-icon
+            md-svg-icon="navigation:ic_expand_less_24px"
+            ng-show="menuList.fnbMenu.expanded"
+            style="color:#F44336;margin-right:8px"></md-icon>
+          <span ng-class="{'menu-expanded':menuList.fnbMenu.expanded}">Food and Beverages</span>
+        </md-subheader>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.foodItems'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/fnb/food-items')"
+          ng-if="menuList.fnbMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="maps:ic_local_restaurant_24px"></md-icon>
+          <p>Food</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.beverageItems'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/fnb/beverage-items')"
+          ng-if="menuList.fnbMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="maps:ic_local_drink_24px"></md-icon>
+          <p>Beverages</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.orders'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/fnb/orders')"
+          ng-if="menuList.fnbMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="action:ic_list_24px"></md-icon>
+          <p>Orders</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.balance'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/fnb/balance')"
+          ng-if="menuList.fnbMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="action:ic_account_balance_wallet_24px"></md-icon>
+          <p>Account balance</p>
+        </md-list-item>
+        <md-list-item class="menu-item"
+          ng-click="navigateToPage('appManager.fnbUpdatePackages'); toggleSidenav('app-manager-sidenav')"
+          ng-class="linkStatus('/app/fnb/updatePackages')"
+          ng-if="menuList.fnbMenu.expanded">
+          <md-icon style="color:#2c3e50;" md-svg-icon="av:ic_playlist_add_24px"></md-icon>
+          <p>Fnb update packages</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+    </md-content>
+  </md-sidenav>
+
+  <!-- Container ===============================================================-->
+  <md-content ui-view layout="column" layout-fill style="background-color:white;"></md-content>

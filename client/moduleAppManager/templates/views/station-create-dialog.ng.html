@@ -1,0 +1,43 @@
+<md-dialog aria-label="Create new station">
+  <md-dialog-content>
+    <form name="createStationForm" layout="row" layout-wrap flex="100">
+      <div flex="100" ng-show="errMsg" style="color:#e74c3c;"><h4>{{errMsg}}</h4></div>
+      <md-input-container flex-gt-md="50" flex-sm="100">
+        <label>Code</label>
+        <input ng-model="station.code">
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex-sm="100">
+        <label>Sequence no</label>
+        <input type="number" ng-model="station.sequenceNo">
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex-sm="100">
+        <label>Name</label>
+        <input ng-model="station.name">
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex-sm="100">
+        <label>Description</label>
+        <input ng-model="station.description">
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex-sm="100">
+        <label>City</label>
+        <input ng-model="station.location.city">
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex="100">
+        <label>latitude</label>
+        <input ng-model="station.location.latitude">
+      </md-input-container>
+      <md-input-container flex-gt-md="50" flex="100">
+        <label>longitude</label>
+        <input ng-model="station.location.longitude">
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" layout-align="end center">
+    <md-button
+      ng-click="createStation()"
+      class="md-primary">CREATE STATION</md-button>
+    <md-button
+      ng-click="cancelCreate()"
+      class="md-primary">CANCEL</md-button>
+  </div>
+</md-dialog>
